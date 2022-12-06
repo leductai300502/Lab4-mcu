@@ -90,12 +90,12 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT (& htim2 ) ;
+  HAL_TIM_Base_Start_IT (& htim2 );
   /* USER CODE END 2 */
   SCH_Init();
 
   	 int offset=10;
-  	 SCH_Add_Task(TASK_A,1000,0);
+  	 SCH_Add_Task(TASK_A,500,0);
   	 SCH_Add_Task(TASK_B,0,1000/offset);
   	 SCH_Add_Task(TASK_C,500,2000/offset);
 
@@ -104,7 +104,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  SCH_Dispatch_Task();
+	  SCH_Dispatch_Tasks();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -229,14 +229,14 @@ int count =0;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim)
 {
 	SCH_Update();
-//	if(count >= 100)
-//	{
-//		count =0;
-//		HAL_GPIO_TogglePin(LED_1_GPIO_Port, LED_1_Pin);
-//	}
-//	else{
-//		count++;
-//	}
+	if(count >= 100)
+	{
+		count =0;
+		HAL_GPIO_TogglePin(LED_4_GPIO_Port, LED_4_Pin);
+	}
+	else{
+		count++;
+	}
 }
 /* USER CODE END 4 */
 
