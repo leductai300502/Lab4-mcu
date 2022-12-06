@@ -9,13 +9,14 @@
 #include "string.h"
 
 sTasks SCH_tasks_G[SCH_MAX_TASKS];
-uint8_t current_index_task = 0;
+uint8_t current_index_task;
 
+// SCH_Init set current_index_task = 0
 void SCH_Init()
 {
-
+	current_index_task =0;
 }
-
+// SCH_Add_Task add new task in SCH_tasks_G with SCH_tasks_G.length = current_index_task
 void SCH_Add_Task ( void (*pFunction)() , uint32_t DELAY, uint32_t PERIOD){
 	if(current_index_task < SCH_MAX_TASKS){
 
@@ -30,7 +31,7 @@ void SCH_Add_Task ( void (*pFunction)() , uint32_t DELAY, uint32_t PERIOD){
 		current_index_task++;
 	}
 }
-
+// SCH_Update refresh new delay time of task while timer interrupt and enable run Task when delay = 0
 void SCH_Update(void) {
 
 	for(int i = 0; i < current_index_task; i++){
@@ -42,7 +43,7 @@ void SCH_Update(void) {
 			}
 		}
 }
-
+// SCH_Dispatch_Tasks run tasks
 void SCH_Dispatch_Tasks(void){
 	for(int i = 0; i < current_index_task; i++){
 		if(SCH_tasks_G[i].RunMe > 0){

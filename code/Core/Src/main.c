@@ -95,9 +95,11 @@ int main(void)
   SCH_Init();
 
   	 int offset=10;
-  	 SCH_Add_Task(TASK_A,500,0);
+  	 SCH_Add_Task(TASK_A,500,500/offset);
   	 SCH_Add_Task(TASK_B,0,1000/offset);
-  	 SCH_Add_Task(TASK_C,500,2000/offset);
+  	 SCH_Add_Task(TASK_C,100,1500/offset);
+  	 SCH_Add_Task(TASK_D,200,0);
+  	 SCH_Add_Task(TASK_E,0,2500/offset);
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
@@ -225,18 +227,11 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int count =0;
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef * htim)
 {
 	SCH_Update();
-	if(count >= 100)
-	{
-		count =0;
-		HAL_GPIO_TogglePin(LED_4_GPIO_Port, LED_4_Pin);
-	}
-	else{
-		count++;
-	}
+
 }
 /* USER CODE END 4 */
 
